@@ -215,7 +215,7 @@ class _CometChatMessagesState extends State<CometChatMessages> {
 
   Widget getMessageList(
       CometChatMessagesController controller, BuildContext context) {
-    if(hideMessageList) return Container();
+    if(widget.hideMessageList) return Container();
     
     return widget.messageListView != null
         ? widget.messageListView!(controller.user, controller.group, context)
