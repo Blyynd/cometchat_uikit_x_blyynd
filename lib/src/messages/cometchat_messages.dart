@@ -23,6 +23,7 @@ class CometChatMessages extends StatefulWidget {
       this.user,
       this.group,
       this.hideMessageComposer = false,
+      this.hideMessageList = false,
       this.messageListConfiguration = const MessageListConfiguration(),
       this.messageHeaderConfiguration = const MessageHeaderConfiguration(),
       this.messageComposerConfiguration = const MessageComposerConfiguration(),
@@ -50,6 +51,9 @@ class CometChatMessages extends StatefulWidget {
 
   ///[hideMessageComposer] hides the composer , default false
   final bool hideMessageComposer;
+
+  ///[hideMessageList] hides the message list , default false
+  final bool hideMessageList;
 
   ///[disableTyping] if true then show typing indicator for composer
   final bool disableTyping;
@@ -211,6 +215,8 @@ class _CometChatMessagesState extends State<CometChatMessages> {
 
   Widget getMessageList(
       CometChatMessagesController controller, BuildContext context) {
+    if(hideMessageList) return Container();
+    
     return widget.messageListView != null
         ? widget.messageListView!(controller.user, controller.group, context)
         : CometChatMessageList(
