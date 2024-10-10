@@ -44,7 +44,6 @@ class CometChatMessageList extends StatefulWidget {
       this.alignment = ChatAlignment.standard,
       this.group,
       this.user,
-      this.appUser, 
       this.customSoundForMessages,
       this.datePattern,
       this.deliveredIcon,
@@ -85,9 +84,6 @@ class CometChatMessageList extends StatefulWidget {
 
   ///[user] user object  for user message list
   final User? user;
-
-  ///[appUser] currently logged comet chat user
-  final User? appUser;
 
   ///[group] group object  for group message list
   final Group? group;
