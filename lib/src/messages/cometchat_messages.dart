@@ -21,7 +21,6 @@ class CometChatMessages extends StatefulWidget {
   const CometChatMessages(
       {Key? key,
       this.user,
-      this.appUser,
       this.group,
       this.hideMessageComposer = false,
       this.hideMessageList = false,
@@ -112,9 +111,6 @@ class CometChatMessages extends StatefulWidget {
 
   ///[group] if not null will [CometChatMessages] for the [group]
   final Group? group;
-
-  ///[appUser] currently logged comet chat user 
-  final User? appUser;
 
   ///[threadedMessagesConfiguration] sets configuration properties for [CometChatThreadedMessages]
   final ThreadedMessagesConfiguration? threadedMessagesConfiguration;
@@ -226,7 +222,6 @@ class _CometChatMessagesState extends State<CometChatMessages> {
         : CometChatMessageList(
             newMessageBannerView: widget.newMessageBannerView,
             user: controller.user,
-            appUser: widget.appUser,
             group: controller.group,
             alignment: widget.messageListConfiguration.alignment ??
                 ChatAlignment.standard,
