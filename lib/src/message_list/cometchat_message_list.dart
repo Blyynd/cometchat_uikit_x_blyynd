@@ -321,6 +321,43 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
     );
   }
 
+  BaseMessage _updateMessageStatus(BaseMessage messageObject, List<BaseMessage> userMessages) {
+    BaseMessage? lastReadMessage;
+    BaseMessage? lastSentMessage;
+
+    List<BaseMessage> appUserMessages = userMessages
+        .where((element) => element.sender?.uid == messageListController.loggedInUser?.uid)
+        .toList();
+
+    int i = 0;
+    // Pass 1: Find the last sent message (i.e., the last message with sentAt != null)
+    while (i < appUserMessages.length) {
+      BaseMessage message = userMessages[i];
+      if (message.sentAt != null) {
+        lastSentMessage = message;
+        break;  // We found the last sent message, so we can break early
+      }
+      i++;
+    }
+
+    i = 0;
+    // Pass 2: Find the last read message (i.e., the last message with readAt != null)
+    while (i < appUserMessages.length) {
+      BaseMessage message = userMessages[i];
+      if (message.readAt != null) {
+        lastReadMessage = message;
+        break;  // We found the last read message, so we can break early
+      }
+      i++;
+    }
+
+    // Update messageObject's isLastMessageRead and isLastMessageSent flags
+    messageObject.isLastMessageRead = lastReadMessage != null && messageObject.id == lastReadMessage.id;
+    messageObject.isLastMessageSent = lastSentMessage != null && messageObject.id == lastSentMessage.id;
+    return messageObject;
+  }
+
+
   Widget _getMessageWidget(BaseMessage messageObject,
       CometChatMessageListController controller,
       CometChatTheme theme,
@@ -335,6 +372,8 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
     // contentVerifier.alignment = BubbleAlignment.left;
     Widget bubbleView=const SizedBox();
 
+    messageObject = _updateMessageStatus(messageObject, controller.list);
+      
     if (controller
         .templateMap["${messageObject.category}_${messageObject.type}"]
         ?.bubbleView !=
