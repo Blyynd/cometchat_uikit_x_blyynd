@@ -332,7 +332,7 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
     int i = 0;
     // Pass 1: Find the last sent message (i.e., the last message with sentAt != null)
     while (i < appUserMessages.length) {
-      BaseMessage message = userMessages[i];
+      BaseMessage message = appUserMessages[i];
       if (message.sentAt != null) {
         lastSentMessage = message;
         break;  // We found the last sent message, so we can break early
@@ -343,7 +343,7 @@ class _CometChatMessageListState extends State<CometChatMessageList> {
     i = 0;
     // Pass 2: Find the last read message (i.e., the last message with readAt != null)
     while (i < appUserMessages.length) {
-      BaseMessage message = userMessages[i];
+      BaseMessage message = appUserMessages[i];
       if (message.readAt != null) {
         lastReadMessage = message;
         break;  // We found the last read message, so we can break early
